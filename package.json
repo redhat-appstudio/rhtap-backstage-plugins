@@ -11,13 +11,12 @@
     ]
   },
   "scripts": {
-    "install-immutable": "turbo run install-immutable",
     "tsc": "turbo run tsc",
     "build": "turbo run build",
     "plugins:prepare": "rimraf dist-plugin && turbo run clean-build --filter='./plugins/**'",
     "plugins:build": "turbo run package-dynamic --filter='./plugins/**'"
   },
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.8.1",
   "devDependencies": {
     "@backstage/cli": "0.30.0",
     "rimraf": "6.0.1",

@@ -1,1 +1,1 @@
-export { default } from "@backstage-community/plugin-redhat-argocd-backend";
+export * from "@backstage-community/plugin-redhat-argocd-backend";

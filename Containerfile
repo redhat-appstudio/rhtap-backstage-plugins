@@ -10,21 +10,17 @@ USER root
 
 COPY . .
 
-# Remove local settings
-RUN rm -f .npmrc
+RUN ln -s $PLUGINS_WORKSPACE/.yarn/releases/yarn-4.8.1.cjs /usr/local/bin/yarn
 
 # The recommended way of using yarn is via corepack. However, corepack is not included in the UBI
 # image. Below we install corepack so we can install yarn.
 # https://github.com/nodejs/corepack?tab=readme-ov-file#default-installs
 RUN \
     node --version && \
-    npm install -g corepack && \
-    corepack --version && \
-    corepack enable yarn && \
-    corepack use 'yarn@4' && \
     yarn --version && \
-    mkdir -p $PLUGINS_OUTPUT && \
-    dnf -y install jq
+    dnf install -y jq && \
+    yarn install --mode skip-build && \
+    mkdir -p $PLUGINS_OUTPUT
 
 
 RUN yarn plugins:prepare && \
