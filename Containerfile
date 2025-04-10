@@ -40,6 +40,22 @@ RUN for plugin in $(ls ${PLUGINS_WORKSPACE}/plugins); do \
 RUN mkdir -p $PLUGINS_OUTPUT/licenses && \
     cp $PLUGINS_WORKSPACE/LICENSE.TXT $PLUGINS_OUTPUT/licenses
 
+# Add B64 encoded annotation to index.json
+ENV INDEX_FILE="${PLUGINS_WORKSPACE}/index.json"
+ENV BASE64_HASH="$(base64 -w 0 $INDEX_FILE)"
+
+RUN echo ${INDEX_FILE}
+# Insert annotation into temp file
+# This assumes that .annotation exists, if not it adds it.
+RUN jq --arg hash "$BASE64_HASH" \
+  '.annotations = (.annotations // {}) | .annotations["io.backstage.dynamic-packages"] = $hash' \
+  "$INDEX_FILE" > "$INDEX_FILE.tmp"
+
+# Replace original index.json file with updated version
+RUN mv "$INDEX_FILE.tmp" "$INDEX_FILE"
+
+RUN echo "$INDEX_FILE"
+
 FROM scratch
 
 LABEL name="RHTAP backstage plugins" \
