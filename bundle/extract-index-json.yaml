@@ -62,7 +62,7 @@ spec:
         fi
 
         echo "Extracting original manifest..."
-        oras manifest "TEST_IMAGE" | jq > manifest.json
+        oras manifest "$TEST_IMAGE" | jq > manifest.json
 
         # Add annotation
         echo "Adding annotation..."
