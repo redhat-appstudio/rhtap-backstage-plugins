@@ -18,12 +18,14 @@ spec:
         set -e
 
         # Install tools
+        echo "Installing tools..."
         microdnf install -y tar findutils curl jq gzip
 
         # Create directory for extracted files
         mkdir -p /tmp/extracted
 
         # Install Oras
+        echo "Installing ORAS..."
         # Docs: https://oras.land/docs/installation
         VERSION="1.2.2"
         curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz"
@@ -34,6 +36,7 @@ spec:
        
         # Pull the image using ORAS
         echo "Pulling image with ORAS..."
+        touch /tmp/contents
         oras pull $(params.IMAGE_URL)@$(params.IMAGE_DIGEST) -o /tmp/contents
 
         # Find all index.json files
