@@ -1,0 +1,63 @@
+{
+  "name": "@rhtap-plugins/backstage-community-plugin-redhat-argocd-backend-dynamic",
+  "version": "0.4.0",
+  "main": "dist/index.cjs.js",
+  "types": "dist/index.d.ts",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.cjs.js",
+    "types": "dist/index.d.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/redhat-appstudio/rhtap-backstage-plugins",
+    "directory": "plugins/redhat-argocd-backend"
+  },
+  "backstage": {
+    "role": "backend-plugin",
+    "supported-versions": "1.36.1",
+    "pluginId": "quay",
+    "pluginPackages": [
+      "@rhtap-plugins/backstage-community-plugin-redhat-argocd-backend"
+    ]
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@backstage-community/plugin-redhat-argocd-backend": "0.4.0",
+    "@backstage/backend-defaults": "^0.7.0",
+    "@backstage/backend-plugin-api": "^1.1.1",
+    "@backstage/catalog-client": "^1.9.1",
+    "@backstage/config": "^1.3.2",
+    "@backstage/errors": "^1.2.7",
+    "@backstage/plugin-catalog-node": "^1.15.1",
+    "@backstage/plugin-permission-common": "^0.8.4",
+    "@backstage/plugin-permission-node": "^0.8.7"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://red.ht/trusted",
+  "bugs": "https://issues.redhat.com/browse/RHTAP",
+  "author": "Red Hat",
+  "keywords": [
+    "support:production",
+    "lifecycle:active"
+  ],
+  "bundleDependencies": true,
+  "overrides": {
+    "@aws-sdk/util-utf8-browser": {
+      "@smithy/util-utf8": "^2.0.0"
+    }
+  },
+  "resolutions": {
+    "@aws-sdk/util-utf8-browser": "npm:@smithy/util-utf8@~2"
+  }
+}
