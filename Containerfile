@@ -22,7 +22,6 @@ RUN \
     yarn install --mode skip-build && \
     mkdir -p $PLUGINS_OUTPUT
 
-
 RUN yarn plugins:prepare && \
     yarn plugins:build
 

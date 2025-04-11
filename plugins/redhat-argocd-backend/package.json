@@ -19,7 +19,7 @@
     "supported-versions": "1.36.1",
     "pluginId": "quay",
     "pluginPackages": [
-      "@backstage-community/plugin-redhat-argocd-backend"
+      "@rhtap-plugins/backstage-community-plugin-redhat-argocd-backend"
     ]
   },
   "exports": {
@@ -40,7 +40,7 @@
     "test": "backstage-cli package test --passWithNoTests --coverage",
     "clean": "backstage-cli package clean",
     "clean-build": "rimraf dist dist-dynamic dist-scalprum dist-plugin",
-    "export-dynamic": "janus-cli package export-dynamic-plugin --no-install --clean --embed-package @backstage-community/plugin-redhat-argocd-backend",
+    "export-dynamic": "janus-cli package export-dynamic-plugin --clean --embed-package @backstage-community/plugin-redhat-argocd-backend",
     "package-dynamic": "janus-cli package package-dynamic-plugins --export-to dist-plugin"
   },
   "dependencies": {

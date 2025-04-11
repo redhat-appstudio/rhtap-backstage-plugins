@@ -26,7 +26,7 @@
     "test": "backstage-cli package test --passWithNoTests --coverage",
     "clean": "backstage-cli package clean",
     "clean-build": "rimraf dist dist-dynamic dist-scalprum dist-plugin",
-    "export-dynamic": "janus-cli package export-dynamic-plugin --no-install --clean",
+    "export-dynamic": "janus-cli package export-dynamic-plugin --clean",
     "package-dynamic": "janus-cli package package-dynamic-plugins --export-to dist-plugin"
   },
   "dependencies": {

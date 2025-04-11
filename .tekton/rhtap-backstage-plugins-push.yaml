@@ -103,7 +103,7 @@ spec:
         description: Execute the build with network isolation
         name: hermetic
         type: string
-      - default: '[{"type": "yarn", "path": "."}, {"type": "rpm", "path": "./rpms/"}]'
+      - default: '[{"type": "yarn", "path": "."},{"type": "yarn", "path": "./cachi2/yarn/quay-backend/"},{"type": "yarn", "path": "./cachi2/yarn/redhat-argocd-backend/"},{"type": "rpm", "path": "./cachi2/rpms/"}]'
         description: Build dependencies to be prefetched by Cachi2
         name: prefetch-input
         type: string

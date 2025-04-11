@@ -1,1 +1,1 @@
-export * from "@backstage-community/plugin-quay-backend";
+export { default } from "@backstage-community/plugin-quay-backend";
