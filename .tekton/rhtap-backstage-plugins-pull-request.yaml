@@ -601,6 +601,28 @@ spec:
             operator: in
             values:
               - "false"
+      - name: apply-backstage-annotation
+        params:
+          - name: IMAGE_URL
+            value: $(tasks.build-image-index.results.IMAGE_URL)
+          - name: IMAGE_DIGEST
+            value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+        runAfter:
+          - rpms-signature-scan
+        taskRef:
+          params:
+            - name: name
+              value: apply-backstage-annotation
+            - name: bundle
+              value: quay.io/bramos/task-apply-backstage-annotation@sha256:8c027e33c10295658fe967ee15a54891ff14a205fc3725faaf214ab0ebd40136
+            - name: kind
+              value: task
+          resolver: bundles
+        when:
+          - input: $(params.skip-checks)
+            operator: in
+            values:
+              - "false"
     workspaces:
       - name: git-auth
         optional: true
