@@ -604,7 +604,7 @@ spec:
       - name: extract-index-json
         params:
           - name: IMAGE_URL
-            VALUE: $(tasks.build-image-index.results.IMAGE_URL)
+            value: $(tasks.build-image-index.results.IMAGE_URL)
           - name: IMAGE_DIGEST
             value: $(tasks.build-image-index.results.IMAGE_DIGEST)
         runAfter:
