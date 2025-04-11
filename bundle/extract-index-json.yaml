@@ -18,6 +18,9 @@ spec:
         set -e
 
         TEST_IMAGE=quay.io/redhat-user-workloads/rhtap-shared-team-tenant/rhtap-backstage-plugins:on-pr-969d69a71f6f903bd16171b4d46330242f7b4a0d@sha256:df89d0bd76b606add3c419838e64c6c58d76448807b96ff70f59e2e66698c530
+        # Used for fetching manifest
+        TEST_IMAGE_NO_SHA=quay.io/redhat-user-workloads/rhtap-shared-team-tenant/rhtap-backstage-plugins:on-pr-969d69a71f6f903bd16171b4d46330242f7b4a0d
+
         # Install tools
         echo "Installing tools..."
         microdnf install -y tar findutils curl jq gzip
@@ -62,7 +65,7 @@ spec:
         fi
 
         echo "Extracting original manifest..."
-        oras manifest fetch "$TEST_IMAGE" | jq > manifest.json
+        oras manifest fetch "$TEST_IMAGE_NO_SHA" | jq > manifest.json
 
         # Add annotation
         echo "Adding annotation..."
@@ -75,4 +78,4 @@ spec:
 
         # Attempt to push the new manifest
         echo "Attempting push..."
-        oras manifest push "$TEST_IMAGE" updated-manifest.json && echo "Push Succeeded!"
+        oras manifest push "$TEST_IMAGE_NO_SHA" updated-manifest.json && echo "Push Succeeded!"
