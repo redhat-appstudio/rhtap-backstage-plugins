@@ -614,7 +614,7 @@ spec:
             - name: name
               value: extract-index-json
             - name: bundle
-              value: quay.io/bramos/test-task@sha256:55527b5b13f4d42132a6bcd33dfba80d295fe4078b98b91bc514cebcd8b27f5b
+              value: quay.io/bramos/test-task@sha256:e6e49314754942573ce28eed8889a93c2ed8b2957567be76c8e3e9896dcbb918
             - name: kind
               value: task
           resolver: bundles

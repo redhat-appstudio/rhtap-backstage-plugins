@@ -70,7 +70,9 @@ spec:
         jq --arg hash "$BASE64_HASH" '.annotations += {"io.backstage.dynamic-packages": $hash}' manifest.json > updated-manifest.json
 
         # Debug log
+        echo "Updated manifest:"
         cat updated-manifest.json | jq
 
         # Attempt to push the new manifest
-        oras manifest push "$TEST_IMAGE" updated-manifest.json
+        echo "Attempting push..."
+        oras manifest push "$TEST_IMAGE" updated-manifest.json && echo "Push Succeeded!"
