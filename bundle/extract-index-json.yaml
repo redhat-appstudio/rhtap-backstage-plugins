@@ -1,0 +1,45 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: extract-index-json
+spec:
+  params:
+    - name: IMAGE_URL
+      type: string
+      description: The URL of the image to extract index.json from
+    - name: IMAGE_DIGEST
+      type: string
+      description: The digest of the image
+  steps:
+    - name: extract-index-json
+      image: quay.io/podman/stable:latest
+      script: |
+        #!/usr/bin/env bash
+        set -e
+
+        # Pull the image
+        podman pull $(params.IMAGE_URL)@$(params.IMAGE_DIGEST)
+
+        # Create a temporary container
+        CONTAINER_ID=$(podman create $(params.IMAGE_URL)@$(params.IMAGE_DIGEST))
+
+        # Create a directory to store the extracted file
+        mkdir -p /tmp/extracted
+
+        # Copy the index.json file from the container
+        podman cp $CONTAINER_ID:/index.json /tmp/extracted/index.json || echo "Failed to extract index.json directly"
+
+        # Display the contents if found
+        if [ -f "/tmp/extracted/index.json" ]; then
+          echo "Successfully extracted index.json:"
+          cat /tmp/extracted/index.json
+          echo "Encoding"
+          BASE64_HASH=(base64 -w 0 /tmp/extracted/index.json)
+          echo "$BASE64_HASH"
+        else
+          echo "Could not find index.json in the container"
+          exit 1
+        fi
+
+        # Clean up
+        podman rm $CONTAINER_ID

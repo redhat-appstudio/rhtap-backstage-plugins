@@ -601,15 +601,20 @@ spec:
             operator: in
             values:
               - "false"
-      - name: test-task
+      - name: extract-index-json
+        params:
+          - name: IMAGE_URL
+            VALUE: $(tasks.build-image-index.results.IMAGE_URL)
+          - name: IMAGE_DIGEST
+            value: $(tasks.build-image-index.results.IMAGE_DIGEST)
         runAfter:
           - rpms-signature-scan
         taskRef:
           params:
             - name: name
-              value: test-task
+              value: extract-index-json
             - name: bundle
-              value: quay.io/bramos/test-task@sha256:38894689424a930aa2a8494150dc153537eb1c3783924acb6dcc15ccad791f49
+              value: quay.io/bramos/test-task@sha256:d5e9e8f646cac5f62aaf41130ddc729c46954cc36b3338a76e95558c7b7400c2
             - name: kind
               value: task
           resolver: bundles
