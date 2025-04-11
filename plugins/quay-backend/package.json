@@ -40,7 +40,8 @@
     "test": "backstage-cli package test --passWithNoTests --coverage",
     "clean": "backstage-cli package clean",
     "clean-build": "rimraf dist dist-dynamic dist-scalprum dist-plugin",
-    "export-dynamic": "janus-cli package export-dynamic-plugin --embed-package @backstage-community/plugin-quay-backend",
+    "export-dynamic:backend": "janus-cli package export-dynamic-plugin --no-install --embed-package @backstage-community/plugin-quay-backend",
+    "export-dynamic:backend:postinstall": "cd dist-dynamic && yarn install",
     "package-dynamic": "janus-cli package package-dynamic-plugins --export-to dist-plugin"
   },
   "dependencies": {

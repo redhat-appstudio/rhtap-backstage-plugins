@@ -22,11 +22,11 @@ RUN \
     yarn install --mode skip-build && \
     mkdir -p $PLUGINS_OUTPUT
 
-RUN cp $plugins/patches/janus-idp-cli.patch "${PLUGINS_WORKSPACE}/node_modules/@janus-idp/cli/dist/" && \
-    patch -p1 < "${PLUGINS_WORKSPACE}/node_modules]/@janus-idp/cli/dist/janus-idp-cli.patch"
-
 RUN yarn plugins:prepare && \
-    yarn plugins:build
+    yarn plugins:build:frontend && \
+    yarn plugins:build:backend && \
+    yarn plugins:build:backend:postinstall && \
+    yarn plugins:package
 
 RUN for plugin in $(ls ${PLUGINS_WORKSPACE}/plugins); do \
      mv "${PLUGINS_WORKSPACE}/plugins/${plugin}/dist-plugin/index.json" "${PLUGINS_WORKSPACE}/plugins/${plugin}/dist-plugin/${plugin}-index.json" && \

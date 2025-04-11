@@ -23905,7 +23905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^17.0.0 || ^18.0.0":
+"react@npm:16.13.1 || ^17.0.0 || ^18.0.0, react@npm:^17.0.0 || ^18.0.0":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
   dependencies:
@@ -24550,7 +24550,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rhtap-plugins@workspace:."
   dependencies:
-    "@backstage/cli": "npm:0.30.0"
+    react: "npm:16.13.1 || ^17.0.0 || ^18.0.0"
     rimraf: "npm:6.0.1"
     turbo: "npm:^2.4.4"
     typescript: "npm:5.8.2"
