@@ -36,7 +36,7 @@ spec:
        
         # Pull the image using ORAS
         echo "Pulling blobs with ORAS..."
-        oras blob fetch $(params.IMAGE_URL)@$(params.IMAGE_DIGEST) -o layer.tar.gz
+        oras blob fetch $(params.IMAGE_URL) -o layer.tar.gz
 
         # Extract the files
         mkdir artifact-contents && tar -xvf layer.tar.gz -C artifact-contents
