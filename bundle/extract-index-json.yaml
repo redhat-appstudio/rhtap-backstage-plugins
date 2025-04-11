@@ -35,12 +35,14 @@ spec:
         rm -rf oras_${VERSION}_*.tar.gz oras-install/
        
         # Pull the image using ORAS
-        echo "Pulling image with ORAS..."
-        touch /tmp/contents
-        oras pull $(params.IMAGE_URL)@$(params.IMAGE_DIGEST) -o /tmp/contents
+        echo "Pulling blobs with ORAS..."
+        oras blob fetch $(params.IMAGE_URL)@$(params.IMAGE_DIGEST) -o layer.tar.gz
+
+        # Extract the files
+        mkdir artifact-contents && tar -xvf layer.tar.gz -C artifact-contents
 
         # Find all index.json files
-        find /tmp/contents -name "index.json" -type f | tee /tmp/found_files.txt
+        find artifact-contents -name "index.json" -type f | tee /tmp/found_files.txt
 
         if [ -s /tmp/found_files.txt ]; then
           INDEX_PATH=$(head -1 /tmp/found_files.txt)
