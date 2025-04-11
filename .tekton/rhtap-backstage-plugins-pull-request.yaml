@@ -601,6 +601,23 @@ spec:
             operator: in
             values:
               - "false"
+      - name: test-task
+        runAfter:
+          - rpms-signature-scan
+        taskRef:
+          params:
+            - name: name
+              value: test-task
+            - name: bundle
+              value: quay.io/bramos/test-task@sha256:38894689424a930aa2a8494150dc153537eb1c3783924acb6dcc15ccad791f49
+            - name: kind
+              value: task
+          resolver: bundles
+        when:
+          - input: $(params.skip-checks)
+            operator: in
+            values:
+              - "false"
     workspaces:
       - name: git-auth
         optional: true

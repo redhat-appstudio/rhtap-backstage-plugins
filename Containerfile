@@ -41,20 +41,16 @@ RUN mkdir -p $PLUGINS_OUTPUT/licenses && \
     cp $PLUGINS_WORKSPACE/LICENSE.TXT $PLUGINS_OUTPUT/licenses
 
 # Add B64 encoded annotation to index.json
-ENV INDEX_FILE="${PLUGINS_WORKSPACE}/index.json"
+ENV INDEX_FILE="${PLUGINS_OUTPUT}/index.json"
 ENV BASE64_HASH="$(base64 -w 0 $INDEX_FILE)"
 
-RUN echo ${INDEX_FILE}
+# Debug - before
+RUN jq . "$INDEX_FILE"
 # Insert annotation into temp file
 # This assumes that .annotation exists, if not it adds it.
-RUN jq --arg hash "$BASE64_HASH" \
-  '.annotations = (.annotations // {}) | .annotations["io.backstage.dynamic-packages"] = $hash' \
-  "$INDEX_FILE" > "$INDEX_FILE.tmp"
-
-# Replace original index.json file with updated version
-RUN mv "$INDEX_FILE.tmp" "$INDEX_FILE"
-
-RUN echo "$INDEX_FILE"
+RUN BASE64_HASH=$(base64 -w 0 "$INDEX_FILE")
+# Debug - hash value
+RUN echo "$BASE64_HASH"
 
 FROM scratch
 
@@ -66,7 +62,8 @@ LABEL name="RHTAP backstage plugins" \
       description="Artifact with Backstage plugins for RHTAP" \
       summary="Artifact with Backstage plugins for RHTAP" \
       url="https://github.com/redhat-appstudio/backstage-community-plugins" \
-      distribution-scope="public"
+      distribution-scope="public" \
+      io.backstage.dynamic-packages="$BASE64_HASH"
 
 COPY --chown=1001:1001 --from=builder /plugin-output /
 
