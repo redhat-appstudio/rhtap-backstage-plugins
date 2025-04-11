@@ -50,9 +50,7 @@
     }
   },
   "resolutions": {
-    "@aws-sdk/util-utf8-browser": "npm:@smithy/util-utf8@~2",
-    "@backstage-community/plugin-quay-backend": "file:./embedded/backstage-community-plugin-quay-backend",
-    "@backstage-community/plugin-quay-common": "file:./embedded/backstage-community-plugin-quay-common"
+    "@aws-sdk/util-utf8-browser": "npm:@smithy/util-utf8@~2"
   },
   "peerDependencies": {
     "@backstage/backend-defaults": "^0.8.1",

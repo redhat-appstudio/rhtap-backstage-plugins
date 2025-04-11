@@ -50,9 +50,7 @@
     }
   },
   "resolutions": {
-    "@aws-sdk/util-utf8-browser": "npm:@smithy/util-utf8@~2",
-    "@backstage-community/plugin-redhat-argocd-backend": "file:./embedded/backstage-community-plugin-redhat-argocd-backend",
-    "@backstage-community/plugin-redhat-argocd-common": "file:./embedded/backstage-community-plugin-redhat-argocd-common"
+    "@aws-sdk/util-utf8-browser": "npm:@smithy/util-utf8@~2"
   },
   "peerDependencies": {
     "@backstage/backend-defaults": "^0.7.0",

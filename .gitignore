@@ -6,7 +6,7 @@
 **/coverage/
 .npmrc
 .env
-.yarn/*
+**/.yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
