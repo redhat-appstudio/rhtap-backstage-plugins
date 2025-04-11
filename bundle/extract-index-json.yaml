@@ -61,11 +61,13 @@ spec:
           exit 1
         fi
 
-        # Extract original manifest
+        echo "Extracting original manifest..."
         oras manifest "TEST_IMAGE" | jq > manifest.json
 
         # Add annotation
-        jq --arg hash "$BASE64_HASH" '.annotations +={"io.backstage.dynamic-packages": $hash}' manifest.json > updated-manifest.json
+        echo "Adding annotation..."
+        BASE64_HASH=$(base64 -w 0 /tmp/extracted/index.json)
+        jq --arg hash "$BASE64_HASH" '.annotations += {"io.backstage.dynamic-packages": $hash}' manifest.json > updated-manifest.json
 
         # Debug log
         cat updated-manifest.json | jq
