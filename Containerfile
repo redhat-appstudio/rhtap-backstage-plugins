@@ -22,6 +22,9 @@ RUN \
     yarn install --mode skip-build && \
     mkdir -p $PLUGINS_OUTPUT
 
+RUN cp $plugins/patches/janus-idp-cli.patch "${PLUGINS_WORKSPACE}/node_modules/@janus-idp/cli/dist/" && \
+    patch -p1 < "${PLUGINS_WORKSPACE}/node_modules]/@janus-idp/cli/dist/janus-idp-cli.patch"
+
 RUN yarn plugins:prepare && \
     yarn plugins:build
 
