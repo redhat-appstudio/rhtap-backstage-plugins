@@ -601,7 +601,7 @@ spec:
             operator: in
             values:
               - "false"
-      - name: extract-index-json
+      - name: apply-backstage-annotation
         params:
           - name: IMAGE_URL
             value: $(tasks.build-image-index.results.IMAGE_URL)
@@ -612,9 +612,9 @@ spec:
         taskRef:
           params:
             - name: name
-              value: extract-index-json
+              value: apply-backstage-annotation
             - name: bundle
-              value: quay.io/bramos/test-task@sha256:3963bc7a23f2ba39ed4588766d86f802d1ca53a2a8eaf55fb33b0d65cd2f0873
+              value: quay.io/bramos/task-apply-backstage-annotation@sha256:8c027e33c10295658fe967ee15a54891ff14a205fc3725faaf214ab0ebd40136
             - name: kind
               value: task
           resolver: bundles
