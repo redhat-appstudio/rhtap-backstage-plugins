@@ -12,34 +12,31 @@ spec:
       description: The digest of the image
   steps:
     - name: extract-index-json
-      image: quay.io/podman/stable:latest
+      image: ghcr.io/oras-project/oras:latest
       script: |
         #!/usr/bin/env bash
         set -e
 
-        # Pull the image
-        podman pull $(params.IMAGE_URL)@$(params.IMAGE_DIGEST)
-
-        # Create a temporary container
-        CONTAINER_ID=$(podman create $(params.IMAGE_URL)@$(params.IMAGE_DIGEST))
-
-        # Create a directory to store the extracted file
+        # Create directtory for extracted files
         mkdir -p /tmp/extracted
 
-        # Copy the index.json file from the container
-        podman cp $CONTAINER_ID:/index.json /tmp/extracted/index.json || echo "Failed to extract index.json directly"
+        # Pull the image using ORAS
+        echo "Pulling image with ORAS..."
+        oras pull $(params.IMAGE_URL)@$(params.IMAGE_DIGEST) -o /tmp/contents
 
-        # Display the contents if found
-        if [ -f "/tmp/extracted/index.json" ]; then
-          echo "Successfully extracted index.json:"
+        # Find all index.json files
+        find /tmp/contents -name "index.json" -type f | tee /tmp/found_files.txt
+
+        if [ -s /tmp/found_files.txt ]; then
+          INDEX_PATH=$(head -1 /tmp/found_files.txt)
+          echo "Found index.json at: $INDEX_PATH"
+          cp "$INDEX_PATH" /tmp/extracted/index.json
+          echo "Contents of index.json:"
           cat /tmp/extracted/index.json
-          echo "Encoding"
-          BASE64_HASH=(base64 -w 0 /tmp/extracted/index.json)
+          echo "B64 Encoding:"
+          BASE64_HASH=$(base64 -w 0 /tmp/extracted/index.json)
           echo "$BASE64_HASH"
         else
           echo "Could not find index.json in the container"
           exit 1
         fi
-
-        # Clean up
-        podman rm $CONTAINER_ID
