@@ -12,14 +12,26 @@ spec:
       description: The digest of the image
   steps:
     - name: extract-index-json
-      image: ghcr.io/oras-project/oras:main
+      image: registry.access.redhat.com/ubi8/ubi-minimal:latest
       script: |
-        #!/usr/bin/env bash
+        #!/bin/bash
         set -e
 
-        # Create directtory for extracted files
+        # Install tools
+        microdnf install -y tar findutils curl jq gzip
+
+        # Create directory for extracted files
         mkdir -p /tmp/extracted
 
+        # Install Oras
+        # Docs: https://oras.land/docs/installation
+        VERSION="1.2.2"
+        curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz"
+        mkdir -p oras-install/
+        tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/
+        mv oras-install/oras /usr/local/bin/
+        rm -rf oras_${VERSION}_*.tar.gz oras-install/
+       
         # Pull the image using ORAS
         echo "Pulling image with ORAS..."
         oras pull $(params.IMAGE_URL)@$(params.IMAGE_DIGEST) -o /tmp/contents
