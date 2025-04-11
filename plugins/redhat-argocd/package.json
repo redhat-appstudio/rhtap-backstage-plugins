@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@backstage/cli": "0.30.0",
-    "@janus-idp/cli": "3.3.1",
+    "@janus-idp/cli": "patch:@janus-idp/cli@npm%3A3.3.1#~/.yarn/patches/@janus-idp-cli-npm-3.3.1-848f245ea8.patch",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-router-dom": "^6.0.0",

@@ -36,7 +36,7 @@
     "@backstage/cli": "0.30.0",
     "@gitbeaker/rest": "^42.2.0",
     "@immobiliarelabs/backstage-plugin-gitlab": "^6.11.0",
-    "@janus-idp/cli": "3.3.1",
+    "@janus-idp/cli": "patch:@janus-idp/cli@npm%3A3.3.1#~/.yarn/patches/@janus-idp-cli-npm-3.3.1-848f245ea8.patch",
     "@mui/icons-material": "5.16.14",
     "@mui/material": "5.16.14",
     "react": "^17.0.0 || ^18.0.0",

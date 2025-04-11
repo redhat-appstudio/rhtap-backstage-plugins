@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@backstage/cli": "0.30.0",
-    "@janus-idp/cli": "3.3.1",
+    "@janus-idp/cli": "patch:@janus-idp/cli@npm%3A3.3.1#~/.yarn/patches/@janus-idp-cli-npm-3.3.1-848f245ea8.patch",
     "typescript": "5.8.2"
   },
   "files": [
