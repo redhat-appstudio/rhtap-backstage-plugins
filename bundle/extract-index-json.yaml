@@ -12,7 +12,7 @@ spec:
       description: The digest of the image
   steps:
     - name: extract-index-json
-      image: ghcr.io/oras-project/oras:latest
+      image: ghcr.io/oras-project/oras:main
       script: |
         #!/usr/bin/env bash
         set -e
